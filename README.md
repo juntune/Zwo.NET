@@ -174,6 +174,43 @@ Workouts are saved as standard Zwift .zwo XML files that can be imported directl
 </workout_file>
 ```
 
+## Importing Workouts into Zwift
+
+Once you've generated your .zwo files using Zwo.NET, you can import them into Zwift on your computer. Here's how:
+
+### On Mac
+
+1. Copy your .zwo file
+2. Open **Finder**
+3. Navigate to **Documents** > **Zwift** > **Workouts**
+4. Open your **Zwift ID folder** (numeric folder)
+5. Paste the .zwo file into the folder
+6. Restart Zwift to see your imported workout
+
+### On PC
+
+1. Copy your .zwo file
+2. Locate the **Z** icon in the notification area of the taskbar (select **˄** if needed to show hidden icons)
+3. Right-click the **Z** icon and select **Open Logs Folder**
+4. In the file path, select **Zwift**
+5. Select **Workouts**
+6. Open your **Zwift ID folder** (numeric folder)
+7. Paste the .zwo file into the folder
+8. Restart Zwift to see your imported workout
+
+### Important Notes
+
+- **File Size Limit**: Files larger than 64 KB are only available on the computer used for import
+- **Sync**: Imported workouts become available on all devices after restarting Zwift
+- **Naming**: Avoid using special characters in your workout filenames to ensure smooth syncing
+- **Finding Your Zwift ID**: See [Locating Your Zwift ID](https://support.zwift.com/en_us/locating-your-zwift-id-H1WiyxS_I) on the Zwift support site
+
+### Sharing Workouts
+
+To share your generated workouts with other Zwifters, simply send them the .zwo file. They can place it in their Zwift ID folder using the same process above.
+
+For more information, visit [Zwift's Custom Workouts Support Page](https://support.zwift.com/en_us/custom-workouts-ryGOTVEPs).
+
 ## Requirements
 
 - .NET 10.0 or later
