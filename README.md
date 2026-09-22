@@ -131,9 +131,9 @@ Adds a workout segment to the workout. Returns `this` for method chaining.
 
 **SaveToFile**
 ```csharp
-public bool SaveToFile(string fileName)
+public void SaveToFile(string fileName)
 ```
-Serializes the workout to an XML file in Zwift .zwo format.
+Serializes the workout to an XML file in Zwift .zwo format. Throws `ArgumentException` if fileName is invalid or `InvalidOperationException` if the save operation fails.
 
 ## Example: Complete Workout
 
