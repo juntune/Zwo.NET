@@ -38,6 +38,8 @@ public class Zwo
     {
         if (string.IsNullOrWhiteSpace(fileName))
             throw new ArgumentException("FileName cannot be null or empty", nameof(fileName));
+        if (!string.Equals(Path.GetExtension(fileName), ".zwo", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("FileName must have a .zwo extension", nameof(fileName));
 
         var serializer = new XmlSerializer(typeof(WorkoutFile));
         var tempFileName = Path.GetTempFileName();
@@ -73,4 +75,3 @@ public class Zwo
         }
     }
 }
-
