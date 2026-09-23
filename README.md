@@ -23,10 +23,10 @@ using ZwoDotNET;
 
 // Create a new workout
 var workout = new Zwo(
-    author: "Your Name",
-    category: "Intervals",
-    name: "Beginner Intervals",
-    description: "A beginner-friendly interval workout"
+    Author: "Your Name",
+    Category: "Intervals",
+    Name: "Beginner Intervals",
+    Description: "A beginner-friendly interval workout"
 );
 
 // Add a warmup segment (2 minutes, ramping from 30% to 50% power)
