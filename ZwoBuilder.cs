@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using System.Globalization;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace ZwoDotNET;
 
@@ -34,6 +36,13 @@ public class Zwo
         return this;
     }
 
+    public string ToXmlString()
+    {
+        using var writer = new Utf8StringWriter();
+        Serialize(writer);
+        return writer.ToString();
+    }
+
     public void SaveToFile(string fileName)
     {
         if (string.IsNullOrWhiteSpace(fileName))
@@ -41,15 +50,12 @@ public class Zwo
         if (!string.Equals(Path.GetExtension(fileName), ".zwo", StringComparison.OrdinalIgnoreCase))
             throw new ArgumentException("FileName must have a .zwo extension", nameof(fileName));
 
-        var serializer = new XmlSerializer(typeof(WorkoutFile));
         var tempFileName = Path.GetTempFileName();
 
         try
         {
             using (var writer = new StreamWriter(tempFileName))
-            {
-                serializer.Serialize(writer, Content);
-            }
+                Serialize(writer);
 
             if (File.Exists(fileName))
             {
@@ -73,5 +79,18 @@ public class Zwo
             }
             throw new InvalidOperationException($"Failed to save workout to file '{fileName}': {ex.Message}", ex);
         }
+    }
+
+    private void Serialize(TextWriter writer)
+    {
+        var serializer = new XmlSerializer(typeof(WorkoutFile));
+        serializer.Serialize(writer, Content);
+    }
+
+    private sealed class Utf8StringWriter : StringWriter
+    {
+        public Utf8StringWriter() : base(CultureInfo.InvariantCulture) { }
+
+        public override Encoding Encoding => new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
     }
 }

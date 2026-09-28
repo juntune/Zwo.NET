@@ -6,7 +6,7 @@ A .NET library for programmatically creating Zwift workout files (.zwo format). 
 
 - 🚴 **Easy Workout Creation**: Build Zwift workouts using a fluent, chainable API
 - 📊 **Multiple Segment Types**: Support for Warmup, SteadyState, FreeRide, and Cooldown segments
-- 💾 **XML Export**: Automatically serialize workouts to standard Zwift .zwo XML format
+- 💾 **XML Export**: Serialize workouts to standard Zwift .zwo XML, either in memory or directly to a file
 - 🔧 **Strongly Typed**: Full type safety with C# classes for all workout components
 - ⚡ **Modern C#**: Built on .NET 10.0 with nullable reference types and implicit usings
 
@@ -59,7 +59,10 @@ workout.AddWorkoutSegment(new Cooldown
     PowerHigh = 0.2
 });
 
-// Save to file
+// Get the ZWO XML without creating a file
+var zwoXml = workout.ToXmlString();
+
+// Or save the workout to a .zwo file
 workout.SaveToFile("my_workout.zwo");
 ```
 
@@ -135,6 +138,16 @@ public void SaveToFile(string fileName)
 ```
 Serializes the workout to an XML file in Zwift .zwo format. Throws `ArgumentException` if fileName is invalid or `InvalidOperationException` if the save operation fails.
 
+**ToXmlString**
+```csharp
+public string ToXmlString()
+```
+Serializes the workout to a ZWO XML string without writing a file. The XML declaration specifies UTF-8. `SaveToFile()` uses the same serializer, so both APIs produce the same workout document.
+
+```csharp
+var zwoXml = workout.ToXmlString();
+```
+
 ## Example: Complete Workout
 
 ```csharp
@@ -156,7 +169,7 @@ workout.SaveToFile("endurance_ride.zwo");
 
 ## Output Format
 
-Workouts are saved as standard Zwift .zwo XML files that can be imported directly into Zwift or shared with other cyclists:
+Workouts are serialized as standard Zwift .zwo XML documents that can be written to a file with `SaveToFile()` and imported directly into Zwift, or returned in memory with `ToXmlString()` and shared with other cyclists:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
