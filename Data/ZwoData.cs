@@ -57,8 +57,8 @@ public class Warmup : WorkoutSegment
         get => _powerLow;
         set
         {
-            if (value < 0 || value > 1.0)
-                throw new ArgumentException("PowerLow must be between 0.0 and 1.0");
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerLow must be between 0.0 and 7.0");
             _powerLow = value;
         }
     }
@@ -69,8 +69,8 @@ public class Warmup : WorkoutSegment
         get => _powerHigh;
         set
         {
-            if (value < 0 || value > 1.0)
-                throw new ArgumentException("PowerHigh must be between 0.0 and 1.0");
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerHigh must be between 0.0 and 7.0");
             _powerHigh = value;
         }
     }
@@ -87,8 +87,8 @@ public class SteadyState : WorkoutSegment
         get => _power;
         set
         {
-            if (value < 0 || value > 1.0)
-                throw new ArgumentException("Power must be between 0.0 and 1.0");
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("Power must be between 0.0 and 7.0");
             _power = value;
         }
     }
@@ -124,8 +124,8 @@ public class Cooldown : WorkoutSegment
         get => _powerLow;
         set
         {
-            if (value < 0 || value > 1.0)
-                throw new ArgumentException("PowerLow must be between 0.0 and 1.0");
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerLow must be between 0.0 and 7.0");
             _powerLow = value;
         }
     }
@@ -136,8 +136,8 @@ public class Cooldown : WorkoutSegment
         get => _powerHigh;
         set
         {
-            if (value < 0 || value > 1.0)
-                throw new ArgumentException("PowerHigh must be between 0.0 and 1.0");
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerHigh must be between 0.0 and 7.0");
             _powerHigh = value;
         }
     }

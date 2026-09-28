@@ -75,8 +75,8 @@ A ramping segment that gradually increases power from one level to another.
 new Warmup
 {
     Duration = 120,        // Duration in seconds
-    PowerLow = 0.3,        // Starting power (0.0 - 1.0)
-    PowerHigh = 0.5        // Ending power (0.0 - 1.0)
+    PowerLow = 0.3,        // Starting power (0.0 - 7.0)
+    PowerHigh = 0.5        // Ending power (0.0 - 7.0)
 }
 ```
 
@@ -87,7 +87,7 @@ A constant power segment at a fixed intensity level.
 new SteadyState
 {
     Duration = 300,        // Duration in seconds
-    Power = 0.75           // Power level (0.0 - 1.0)
+    Power = 1.2            // Power level (0.0 - 7.0; 1.2 is 120% of FTP)
 }
 ```
 
@@ -109,8 +109,8 @@ A ramping segment that gradually decreases power.
 new Cooldown
 {
     Duration = 120,        // Duration in seconds
-    PowerLow = 0.4,        // Starting power (0.0 - 1.0)
-    PowerHigh = 0.2        // Ending power (0.0 - 1.0)
+    PowerLow = 0.4,        // Starting power (0.0 - 7.0)
+    PowerHigh = 0.2        // Ending power (0.0 - 7.0)
 }
 ```
 
