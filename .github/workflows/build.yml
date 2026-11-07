@@ -14,3 +14,5 @@ jobs:
           dotnet-version: 10.0.x
       - name: Build
         run: dotnet build Zwo.NET.csproj --configuration Release
+      - name: Test
+        run: dotnet test Zwo.NET.Tests/Zwo.NET.Tests.csproj --configuration Release
