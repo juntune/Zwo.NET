@@ -2,7 +2,7 @@
 
 A .NET library for programmatically creating Zwift workout files (.zwo format). Build structured cycling workouts with different segment types including warmups, steady states, free rides, and cooldowns.
 
-[![Latest build](https://github.com/juntune/Zwo.NET/actions/workflows/build.yml/badge.svg)](https://github.com/juntune/Zwo.NET/actions/workflows/build.yml)
+[![Latest build](https://github.com/juntune/Zwo.NET/actions/workflows/build.yml/badge.svg)](https://github.com/juntune/Zwo.NET/actions/workflows/build.yml) [![Test](https://github.com/juntune/Zwo.NET/actions/workflows/test.yml/badge.svg)](https://github.com/juntune/Zwo.NET/actions/workflows/test.yml)
 
 ## Features
 
