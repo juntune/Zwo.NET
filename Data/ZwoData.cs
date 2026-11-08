@@ -6,10 +6,10 @@ namespace ZwoDotNET;
 public class WorkoutFile
 {
     [XmlElement(ElementName = "author")]
-    public required string Author { get; set; }
+    public string? Author { get; set; }
 
     [XmlElement(ElementName = "category")]
-    public required string Category { get; set; }
+    public string? Category { get; set; }
 
     [XmlElement(ElementName = "name")]
     public required string Name { get; set; }
@@ -17,11 +17,18 @@ public class WorkoutFile
     [XmlElement(ElementName = "description")]
     public required string Description { get; set; }
 
-    // [XmlElement(ElementName = "tags")]
-    // public object Tags { get; set; }
+    [XmlArray(ElementName = "tags")]
+    [XmlArrayItem(ElementName = "tag")]
+    public List<WorkoutTag>? Tags { get; set; }
 
     [XmlElement(ElementName = "workout")]
     public required Workout Workout { get; set; }
+}
+
+public class WorkoutTag
+{
+    [XmlAttribute(AttributeName = "name")]
+    public string Name { get; set; } = string.Empty;
 }
 
 [XmlInclude(typeof(Warmup))]
@@ -30,10 +37,10 @@ public class WorkoutFile
 [XmlInclude(typeof(Cooldown))]
 public abstract class WorkoutSegment
 {
-    private int _duration;
+    private decimal _duration;
 
     [XmlAttribute(AttributeName = "Duration")]
-    public int Duration
+    public decimal Duration
     {
         get => _duration;
         set
@@ -80,6 +87,11 @@ public class Warmup : WorkoutSegment
 public class SteadyState : WorkoutSegment
 {
     private double _power;
+    private double _powerLow;
+    private double _powerHigh;
+    private bool _powerSpecified;
+    private bool _powerLowSpecified;
+    private bool _powerHighSpecified;
 
     [XmlAttribute(AttributeName = "Power")]
     public double Power
@@ -90,8 +102,41 @@ public class SteadyState : WorkoutSegment
             if (!double.IsFinite(value) || value < 0 || value > 7.0)
                 throw new ArgumentException("Power must be between 0.0 and 7.0");
             _power = value;
+            _powerSpecified = true;
         }
     }
+
+    public bool ShouldSerializePower() => _powerSpecified;
+
+    [XmlAttribute(AttributeName = "PowerLow")]
+    public double PowerLow
+    {
+        get => _powerLow;
+        set
+        {
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerLow must be between 0.0 and 7.0");
+            _powerLow = value;
+            _powerLowSpecified = true;
+        }
+    }
+
+    public bool ShouldSerializePowerLow() => _powerLowSpecified;
+
+    [XmlAttribute(AttributeName = "PowerHigh")]
+    public double PowerHigh
+    {
+        get => _powerHigh;
+        set
+        {
+            if (!double.IsFinite(value) || value < 0 || value > 7.0)
+                throw new ArgumentException("PowerHigh must be between 0.0 and 7.0");
+            _powerHigh = value;
+            _powerHighSpecified = true;
+        }
+    }
+
+    public bool ShouldSerializePowerHigh() => _powerHighSpecified;
 }
 
 [XmlRoot(ElementName = "FreeRide")]

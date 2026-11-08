@@ -28,6 +28,14 @@ public sealed class WorkoutValidationTests
     }
 
     [TestMethod]
+    public void SegmentsPreserveFractionalDuration()
+    {
+        var segment = new SteadyState { Duration = 0.25m };
+
+        Assert.AreEqual(0.25m, segment.Duration);
+    }
+
+    [TestMethod]
     public void AddWorkoutSegmentRejectsNull()
     {
         var workout = new Workout("Coach", "Intervals", "Tempo", "Steady effort");
@@ -56,7 +64,7 @@ public sealed class WorkoutValidationTests
             }
 
             segment.Duration = 1;
-            Assert.AreEqual(1, segment.Duration);
+            Assert.AreEqual(1m, segment.Duration);
         }
     }
 
@@ -71,6 +79,8 @@ public sealed class WorkoutValidationTests
             ("Warmup.PowerLow", value => warmup.PowerLow = value),
             ("Warmup.PowerHigh", value => warmup.PowerHigh = value),
             ("SteadyState.Power", value => steadyState.Power = value),
+            ("SteadyState.PowerLow", value => steadyState.PowerLow = value),
+            ("SteadyState.PowerHigh", value => steadyState.PowerHigh = value),
             ("Cooldown.PowerLow", value => cooldown.PowerLow = value),
             ("Cooldown.PowerHigh", value => cooldown.PowerHigh = value)
         ];

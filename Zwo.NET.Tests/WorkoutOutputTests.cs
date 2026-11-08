@@ -94,6 +94,39 @@ public sealed class WorkoutOutputTests
     }
 
     [TestMethod]
+    public void ToXmlStringPreservesTagsOptionalMetadataAndSteadyStatePowerRange()
+    {
+        var workout = new Workout("Coach", "Intervals", "Tempo", "Steady effort")
+        {
+            Content =
+            {
+                Author = null,
+                Category = null,
+                Tags = [new WorkoutTag { Name = "RECOVERY" }]
+            }
+        };
+        workout.AddWorkoutSegment(new SteadyState
+        {
+            Duration = 0.25m,
+            PowerLow = 0.55,
+            PowerHigh = 0.75
+        });
+
+        var root = XDocument.Parse(workout.ToXmlString()).Root;
+        Assert.IsNotNull(root);
+        Assert.IsNull(root.Element("author"));
+        Assert.IsNull(root.Element("category"));
+        Assert.AreEqual("RECOVERY", root.Element("tags")?.Element("tag")?.Attribute("name")?.Value);
+
+        var steadyState = root.Element("workout")?.Element("SteadyState");
+        Assert.IsNotNull(steadyState);
+        Assert.AreEqual("0.25", steadyState.Attribute("Duration")?.Value);
+        Assert.AreEqual("0.55", steadyState.Attribute("PowerLow")?.Value);
+        Assert.AreEqual("0.75", steadyState.Attribute("PowerHigh")?.Value);
+        Assert.IsNull(steadyState.Attribute("Power"));
+    }
+
+    [TestMethod]
     public void SaveToFileWritesValidWorkoutXml()
     {
         var temporaryDirectory = Directory.CreateTempSubdirectory();
