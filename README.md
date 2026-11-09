@@ -7,7 +7,8 @@ A .NET library for programmatically creating Zwift workout files (.zwo format). 
 ## Features
 
 - 🚴 Easy workout creation with a fluent, chainable API
-- 📊 Support for Warmup, SteadyState, FreeRide, and Cooldown segments
+- 📊 Support for Warmup, SteadyState, Ramp, IntervalsT, FreeRide, and Cooldown segments
+- 🎯 Optional cadence targets and on-screen text events per segment
 - 💾 XML export to standard Zwift .zwo files or an in-memory XML string
 - 🔧 Strongly typed C# models for workout metadata and segments
 - ⚡ Built for .NET 10 with nullable reference types enabled
@@ -135,6 +136,49 @@ new Cooldown
     PowerHigh = 0.2
 };
 ```
+
+### Ramp
+
+A ramp between two power targets anywhere in the workout (not just at the start or end).
+
+```csharp
+new Ramp
+{
+    Duration = 600,
+    PowerLow = 0.6,
+    PowerHigh = 0.9
+};
+```
+
+### IntervalsT
+
+Repeated on/off intervals in a single element. The segment length is
+`Repeat * (OnDuration + OffDuration)`, so no `Duration` attribute is written.
+
+```csharp
+new IntervalsT
+{
+    Repeat = 5,
+    OnDuration = 180,
+    OffDuration = 120,
+    OnPower = 1.1,
+    OffPower = 0.5,
+    CadenceResting = 85 // optional
+};
+```
+
+### Cadence and text events
+
+Every segment accepts an optional `Cadence` target (RPM) and a list of
+`TextEvents` shown on screen. Both are only written when set.
+
+```csharp
+var segment = new SteadyState { Duration = 600, Power = 0.85, Cadence = 90 };
+segment.TextEvents.Add(new TextEvent { TimeOffset = 10, Message = "Settle into tempo" });
+```
+
+`Workout.TotalDuration` returns the full workout length in seconds,
+including interval repeats.
 
 ## API Overview
 
